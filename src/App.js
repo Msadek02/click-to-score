@@ -28,26 +28,27 @@ class App extends Component {
   }
 
   clickCount = id => {
-    this.state.cards.find((cards, i) => {
-      if (cards.id === id) {
-        if(cards[i].count === 0){
-          cards[i].count = cards[i].count + 1;
+    this.state.cards.map((o, i) => {
+      if (o.id === id) {
+        if(cards.count === 0){
+          cards.count = cards.count + 1;
           this.setState({score : this.state.score + 1}, function(){
             console.log(this.state.score);
           });
           this.state.cards.sort(() => Math.random() - 0.5)
           return true; 
         } else {
-          this.gameOver();
+          return this.gameOver();
         }
       }
+      return true;
     });
   }
 
   render() {
     return (
       <Wrapper>
-        <Header score= {this.state.score} highscore= {this.state.highscore}> Click to Win </Header>
+        <Header score= {this.state.score} highscore= {this.state.highscore}>Click to Win</Header>
         {this.state.cards.map(card => (
           <Card
             clickCount={this.clickCount}
